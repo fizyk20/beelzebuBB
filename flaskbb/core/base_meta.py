@@ -38,11 +38,20 @@ class BaseMeta(type):
         _name = d['_name'] if '_name' in d else d['_inherit']
         _inherit = d['_inherit'] if '_inherit' in d else None
         if cls.reg.exists(_name):
-            if not _inherit:
-                raise RegistryError('%s named %s already exists and is not being inherited by class %s!' % (cls.what.capitalize(), _name, name))
-            newcls = cls.reg.get(_name) # TODO - implement inheritance
+            return cls.construct_inherited(_name, _inherit, name, bases, d)
         else:
-            newcls = super().__new__(cls, name, bases, d)
-            cls.reg.register(_name, newcls)      
+            return cls.construct_new(_name, name, bases, d)
+    
+    @classmethod
+    def construct_new(cls, _name, name, bases, d):
+        newcls = super().__new__(cls, name, bases, d)
+        cls.reg.register(_name, newcls)
+        return newcls
+    
+    @classmethod
+    def construct_inherited(cls, _name, _inherit, name, bases, d):
+        if not _inherit:
+            raise RegistryError('%s named %s already exists and is not being inherited by class %s!' % (cls.what.capitalize(), _name, name))
+        newcls = cls.reg.get(_name) # TODO - implement inheritance
         return newcls
     
