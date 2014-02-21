@@ -10,8 +10,8 @@ class Registry:
     def __init__(self):
         self.pool = {}
         
-    def register(self, name, cls):
-        self.pool[name] = cls
+    def register(self, name, obj):
+        self.pool[name] = obj
         
     def unregister(self, name):
         del self.pool[name]
@@ -31,8 +31,11 @@ class BaseMeta(type):
     
     reg = None
     what = 'class'
+    base = None
     
     def __new__(cls, name, bases, d):
+        if name == cls.base:
+            return super().__new__(cls, name, bases, d)
         if '_name' not in d and '_inherit' not in d:
             raise RegistryError('_name not defined in class %s' % name)
         _name = d['_name'] if '_name' in d else d['_inherit']
@@ -45,7 +48,7 @@ class BaseMeta(type):
     @classmethod
     def construct_new(cls, _name, name, bases, d):
         newcls = super().__new__(cls, name, bases, d)
-        cls.reg.register(_name, newcls)
+        cls.reg.register(_name, newcls())
         return newcls
     
     @classmethod

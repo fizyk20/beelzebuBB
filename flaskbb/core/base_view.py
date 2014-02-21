@@ -7,6 +7,7 @@ ViewRegistry = Registry()
 class ViewMeta(BaseMeta):
     reg = ViewRegistry
     what = 'view'
+    base = 'BaseView'
 
 class BaseView(metaclass=ViewMeta):
     pass
