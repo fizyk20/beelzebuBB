@@ -48,7 +48,7 @@ class BaseMeta(type):
     @classmethod
     def construct_new(cls, _name, name, bases, d):
         newcls = super().__new__(cls, name, bases, d)
-        cls.reg.register(_name, newcls())
+        cls.reg.register(_name, cls)
         return newcls
     
     @classmethod
