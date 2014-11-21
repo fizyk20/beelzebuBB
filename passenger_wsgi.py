@@ -1,5 +1,5 @@
 import sys, os
 sys.path.append(os.getcwd())
-import flaskbb
+import beelzebubb
 
-application = flaskbb.app
+application = beelzebubb.app

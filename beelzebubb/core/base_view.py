@@ -1,5 +1,5 @@
 from .base_meta import BaseMeta, Registry
-from flaskbb import app
+from beelzebubb import app
 from flask import request
 
 ViewRegistry = Registry()

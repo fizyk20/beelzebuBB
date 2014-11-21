@@ -1,4 +1,4 @@
-class FlaskBBError(Exception):
+class BeelzebuBBError(Exception):
     def __init__(self, val):
         self.val = val
         

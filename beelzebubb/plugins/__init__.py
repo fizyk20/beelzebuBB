@@ -1,8 +1,8 @@
 import importlib
 import os
-from flaskbb.core.exceptions import FlaskBBError
+from beelzebubb.core.exceptions import BeelzebuBBError
 
-class PluginError(FlaskBBError):
+class PluginError(BeelzebuBBError):
     pass
 
 class Plugins:
@@ -12,7 +12,7 @@ class Plugins:
         self.imported = []
 
     def list_plugins(self):
-        root, dirs, _ = next(os.walk(os.path.join(os.getcwd(), 'flaskbb', 'plugins')))
+        root, dirs, _ = next(os.walk(os.path.join(os.getcwd(), 'beelzebubb', 'plugins')))
         plugins = []
         for d in dirs:
             if '__plugin__.py' not in os.listdir(os.path.join(root, d)): continue
@@ -48,7 +48,7 @@ def import_plugins():
     print('Importing plugins...')
     p = plugins.next()
     while p:
-        importlib.import_module('flaskbb.plugins.' + p['name'])
+        importlib.import_module('beelzebubb.plugins.' + p['name'])
         print('Imported ' + p['name'])
         p = plugins.next()
         

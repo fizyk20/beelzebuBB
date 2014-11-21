@@ -1,6 +1,6 @@
-from flaskbb.core.exceptions import FlaskBBError
+from beelzebubb.core.exceptions import BeelzebuBBError
 
-class RegistryError(FlaskBBError):
+class RegistryError(BeelzebuBBError):
     pass
 
 # Registry class

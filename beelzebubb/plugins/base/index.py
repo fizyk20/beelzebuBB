@@ -1,4 +1,4 @@
-from flaskbb.core import BaseView
+from beelzebubb.core import BaseView
 from flask import render_template
 
 class IndexView(BaseView):
