@@ -6,6 +6,10 @@ class RegistryError(BeelzebuBBError):
 # Registry class
 
 class Registry:
+    '''Generic registry for objects
+    Together with appropriate metaclasses this allows to keep a list of all created classes.
+    The user-defined class should inherit after a class exposed by the API - since its metaclass
+    is associated with a registry, it will be registered and kept for later use.'''
     
     def __init__(self):
         self.pool = {}
@@ -28,6 +32,11 @@ class Registry:
 # Basic metaclass for use with registries
 
 class BaseMeta(type):
+    '''The base for metaclasses interacting with registries.
+    Generating a metaclass involves inheriting from BaseMeta and defining 3 parameters:
+    * reg - the associated Registry subclass
+    * what - the friendly name of object class served by this metaclass (Model / View / ...)
+    * base - the name of the base class (since it usually shouldn't get written to the registry)'''
     
     reg = None
     what = 'class'
